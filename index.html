@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Example</title>
+</head>
+<body>
+    <button id="notifyButton">Allow Notifications</button>
+
+    <script>
+        const button = document.getElementById('notifyButton');
+
+        button.addEventListener('click', async () => {
+            if (Notification.permission === "granted") {
+                // Notification permission already granted
+                sendNotification();
+            } else if (Notification.permission !== "denied") {
+                // Request permission
+                const permission = await Notification.requestPermission();
+                if (permission === "granted") {
+                    sendNotification();
+                }
+            }
+        });
+
+        function sendNotification() {
+            const notification = new Notification("This is a notification!", {
+                body: "You have allowed notifications from this website.",
+                icon: "icon.png" // Replace with the path to your icon
+            });
+        }
+    </script>
+</body>
+</html>
